@@ -83,11 +83,56 @@ function loadFonts(){
     l.onload=fin;l.onerror=()=>{if(!d){d=1;console.warn('font failed',f[0]);res();}};setTimeout(fin,9000);document.head.appendChild(l);}));
   return Promise.all(jobs);
 }
+/* ---------- SFX: unpitched noise only (clicks, ticks, thumps, whooshes) ---------- */
+let REC=null,curT=0,lastT=-1,lastRow=null;
+const nbuf=ctx=>{if(ctx.__nb)return ctx.__nb;const n=ctx.sampleRate,b=ctx.createBuffer(1,n,ctx.sampleRate),d=b.getChannelData(0);let q=1234567;
+  for(let i=0;i<n;i++){q=(q*1664525+1013904223)>>>0;d[i]=q/2147483648-1;}return ctx.__nb=b;};
+/* type -> [filter, freq, Q, duration, gain] */
+const SFX={
+  key:['bandpass',2600,.9,.035,.55],space:['bandpass',900,.8,.06,.7],back:['bandpass',1500,.9,.03,.4],
+  hover:['highpass',6500,.7,.022,.3],row:['lowpass',500,.7,.1,.7],thud:['lowpass',280,.7,.16,.9],whoosh:['bandpass',400,.6,.4,.5]};
+function synth(ctx,dst,type,when,v,seed){
+  const p=SFX[type];if(!p)return;
+  const src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();
+  src.buffer=nbuf(ctx);f.type=p[0];f.Q.value=p[2];
+  const fr=p[1]*(1+((seed||0)%5-2)*.07),dur=p[3];
+  f.frequency.setValueAtTime(fr,when);
+  if(type==='whoosh'){f.frequency.exponentialRampToValueAtTime(4200,when+dur);}
+  g.gain.setValueAtTime(0,when);g.gain.linearRampToValueAtTime(p[4]*v,when+(type==='whoosh'?dur*.35:.002));
+  g.gain.exponentialRampToValueAtTime(.0001,when+dur);
+  src.connect(f);f.connect(g);g.connect(dst);src.start(when,((seed||0)*.0371)%.5,dur+.05);
+}
+function emit(type,v=1,seed=0){if(REC)REC.push({t:+curT.toFixed(4),type,v,seed});} /* soundtrack is baked at render time only */
+function resetSfxState(){cards.forEach(k=>k.on=false);lastRow=null;lastT=-1;lastN=-1;}
+/* render.py contract: window.renderAudio() -> Promise<base64 WAV>; sound events are recorded by dry-running renderFrame */
+function recordAudio(){
+  REC=[{t:0,type:'whoosh',v:.8,seed:0}];resetSfxState();
+  for(let i=0;i<DUR*30;i++)renderFrame(i/30);
+  window.REEL.audioEvents=REC;REC=null;resetSfxState();renderFrame(0);
+}
+window.renderAudio=async()=>{
+  if(!window.REEL.audioEvents)recordAudio();
+  const sr=44100,ctx=new OfflineAudioContext(2,Math.round(sr*DUR),sr);
+  const comp=ctx.createDynamicsCompressor(),m=ctx.createGain();m.gain.value=.9;m.connect(comp);comp.connect(ctx.destination);
+  window.REEL.audioEvents.forEach(e=>synth(ctx,m,e.type,e.t,e.v,e.seed));
+  const buf=await ctx.startRendering(),L=buf.getChannelData(0),R=buf.getChannelData(1),n=L.length;
+  const out=new DataView(new ArrayBuffer(44+n*4)),w=(o,t)=>{for(let i=0;i<t.length;i++)out.setUint8(o+i,t.charCodeAt(i));};
+  w(0,'RIFF');out.setUint32(4,36+n*4,true);w(8,'WAVEfmt ');out.setUint32(16,16,true);out.setUint16(20,1,true);out.setUint16(22,2,true);
+  out.setUint32(24,sr,true);out.setUint32(28,sr*4,true);out.setUint16(32,4,true);out.setUint16(34,16,true);w(36,'data');out.setUint32(40,n*4,true);
+  for(let i=0;i<n;i++){out.setInt16(44+i*4,Math.max(-1,Math.min(1,L[i]))*32767,true);out.setInt16(46+i*4,Math.max(-1,Math.min(1,R[i]))*32767,true);}
+  const u8=new Uint8Array(out.buffer);let bin='';for(let i=0;i<u8.length;i+=8192)bin+=String.fromCharCode.apply(null,u8.subarray(i,i+8192));
+  return btoa(bin);
+};
 const ty=$('ty'),rs=$('rs'),cc=$('cc'),cur=$('cur'),gal=$('gal');let lastN=-1;
 function renderFrame(t){
-  t=((t%DUR)+DUR)%DUR;const u=t/DUR;
+  t=((t%DUR)+DUR)%DUR;const u=t/DUR;curT=t;
+  const cross=x=>lastT>=0&&lastT<x&&t>=x;
+  if(lastT>=0&&t<lastT-.5)emit('whoosh',.8); /* loop restart */
+  if(cross(1.9))emit('thud',.7);            /* typing done */
+  if(cross(4.3))emit('whoosh',.45);         /* backspace sweep */
   /* gallery scroll: exactly one period per loop -> seamless */
   const sc=u*PERIOD;gal.style.transform=`translateY(${-sc}px)`;
+  const row=Math.floor(sc/ROWP);if(lastRow!==null&&row!==lastRow)emit('row',.5,row);lastRow=row;
   /* cursor path (periodic) */
   const cx=600+430*Math.sin(2*Math.PI*u+.6),cy=410+170*Math.sin(4*Math.PI*u+1);
   cur.style.transform=`translate(${cx-6}px,${cy-4}px)`;
@@ -99,12 +144,18 @@ function renderFrame(t){
     k.d.style.transform=e?`translateY(${-4*e}px)`:'';
     k.d.style.borderColor=e?`rgba(58,44,255,${e})`:'';
     k.e.style.opacity=e;
+    if(e>.6&&!k.on){k.on=true;emit('hover',1,k.idx);}else if(e<.15)k.on=false; /* hover tick */
   });
   /* typing: type 0.3-1.9s, hold, backspace 4.3-4.9s */
   let n=TXT.length;
   if(t<.3)n=0;else if(t<1.9)n=Math.round(TXT.length*clamp((t-.3)/1.6));
   else if(t>=4.3)n=Math.round(TXT.length*(1-clamp((t-4.3)/.6)));
-  if(n!==lastN){ty.textContent=TXT.slice(0,n);rs.textContent=TXT.slice(n);lastN=n;}
+  if(n!==lastN){
+    if(lastN>=0){const dn=n-lastN;
+      if(dn>0)for(let j=0;j<Math.min(dn,3);j++){const ch=TXT[n-1-j];emit(ch===' '?'space':'key',.9,n+j);}
+      else for(let j=0;j<Math.min(-dn,3);j++)emit('back',.9,n+j);}
+    ty.textContent=TXT.slice(0,n);rs.textContent=TXT.slice(n);lastN=n;}
+  lastT=t;
   const typing=t<1.9||t>=4.3;cc.style.opacity=(typing||Math.floor(t*2)%2===0)?1:0;
 }
 window.renderFrame=renderFrame;
@@ -117,7 +168,7 @@ function preview(){
   try{
     build();await Promise.all([loadFonts(),document.fonts.load('800 40px "Bricolage Grotesque"','My businessman $50,000'),document.fonts.load('700 40px "Bricolage Grotesque"',TXT)]).catch(()=>{});
     await document.fonts.ready;fit();renderFrame(0);
-    if(!RENDER)preview();
+    if(RENDER)recordAudio();else preview();
     window.__reelReady=true;
   }catch(e){window.__reelError=String(e&&e.stack||e);}
 })();
