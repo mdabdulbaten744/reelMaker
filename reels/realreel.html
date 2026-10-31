@@ -1,96 +1,122 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wordform — Logo Gallery Loop Reel</title>
+<title>Wordmark Logos — Fast Reel Loop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400..800&family=Inter:wght@700;800;900&family=Cinzel:wght@700&family=Playfair+Display:wght@700&display=swap">
 <style>
-:root{--bg:#f1f2f8;--ink:#0e1030;--mut:#5b5e7e;--line:#d5d8ea;--card:#fff;--acc:#3a2cff;--f:'Bricolage Grotesque',system-ui,sans-serif}
+:root{--bg:#f8f9fa;--ink:#111;--mut:#666;--line:#e5e7eb;--card:#fff;--acc:#2563eb;--f:'Bricolage Grotesque',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;-webkit-font-smoothing:antialiased}
 #vp{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;background:#0a0a0c;transform-origin:0 0;font-family:var(--f)}
 .sec{position:absolute;left:0;width:1080px;height:640px}
-#top{top:0;display:flex;align-items:center;justify-content:center;padding:0 70px;text-align:center;color:#fff;font-weight:800;font-size:70px;line-height:1.12;letter-spacing:-.025em}
-#top em{font-style:normal;color:#ffd23f}
+#top{top:0;display:flex;align-items:center;justify-content:center;padding:0 70px;text-align:center;color:#fff;font-weight:800;font-size:64px;line-height:1.15;letter-spacing:-.025em}
+#top em{font-style:normal;color:#3b82f6}
 #mid{top:640px;overflow:hidden;background:var(--bg);box-shadow:0 0 0 2px rgba(255,255,255,.1)}
-#bot{top:1280px;display:flex;align-items:center;justify-content:center;padding:0 80px;text-align:center;color:#fff;font-weight:700;font-size:72px;line-height:1.15;letter-spacing:-.02em}
-#bot .r{visibility:hidden}#bot .c{display:inline-block;width:6px;height:.86em;margin:0 -6px 0 0;vertical-align:-.1em;background:#ffd23f}
+#bot{top:1280px;display:flex;align-items:center;justify-content:center;padding:0 80px;text-align:center;color:#fff;font-weight:700;font-size:62px;line-height:1.15;letter-spacing:-.02em}
+#bot .r{visibility:hidden}#bot .c{display:inline-block;width:6px;height:.86em;margin:0 -6px 0 0;vertical-align:-.1em;background:#3b82f6}
 #app{position:absolute;left:0;top:0;width:1200px;height:712px;transform:scale(.9);transform-origin:0 0;color:var(--ink)}
 #tb{position:absolute;left:0;top:0;width:1200px;height:122px;background:var(--bg);border-bottom:1px solid var(--line);z-index:5;padding:14px 20px 0}
 .row1{display:flex;gap:10px;align-items:center}
-.nm{flex:2 1 0;height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 14px;display:flex;align-items:center;font-size:16px}
+.nm{flex:2 1 0;height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 14px;display:flex;align-items:center;font-size:16px;font-weight:600}
 .sb{flex:0 0 200px;height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 14px;display:flex;align-items:center;justify-content:space-between;font-size:16px}
 .btn{height:46px;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:0 16px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px}
 svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .chips{display:flex;gap:8px;margin-top:12px}.chips span{white-space:nowrap;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-weight:500;font-size:16px}.chips .on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 #gal{position:absolute;left:0;top:122px;width:1200px;will-change:transform}
-.card{position:absolute;width:278px;height:189px;border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;box-shadow:0 1px 2px rgba(14,16,48,.06),0 14px 30px -16px rgba(40,30,160,.28)}
-.art{height:139px;display:flex;align-items:center;justify-content:center;white-space:nowrap;line-height:1.2}
+.card{position:absolute;width:278px;height:189px;border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.06),0 14px 30px -16px rgba(0,0,0,.15)}
+.art{height:139px;display:flex;align-items:center;justify-content:center;white-space:nowrap;line-height:1.2;padding:0 20px}
 .meta{display:flex;align-items:center;gap:8px;padding:0 14px;height:48px;border-top:1px solid var(--line);background:var(--card);font-size:16px}
 .meta b{font-weight:700;white-space:nowrap}.meta span{color:var(--mut);font-size:14px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta i{display:flex;gap:4px;align-items:center;font-style:normal;font-size:14px;font-weight:600;color:var(--acc);opacity:0}.meta i svg{width:16px;height:16px}
 #cur{position:absolute;left:0;top:0;width:34px;height:34px;z-index:9;filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
-#mid::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(0,0,0,.05),transparent 8%,transparent 92%,rgba(0,0,0,.06))}
+#mid::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(0,0,0,.03),transparent 8%,transparent 92%,rgba(0,0,0,.04))}
 </style></head><body>
 <div id="vp">
- <div class="sec" id="top"><div>My businessman friend paying <em>$50,000</em> to a logo designer.<br>Meanwhile me</div></div>
+ <div class="sec" id="top"><div>Great brands can have text-only logos.<br>Then why <em>don't you?</em></div></div>
  <div class="sec" id="mid"><div id="app">
-  <div id="tb"><div class="row1"><div class="nm">Nova</div><div class="sb"><span>All typefaces</span><svg class="i"><path d="M6 9l6 6 6-6"/></svg></div><div class="btn"><svg class="i"><path d="M3 7h3c5 0 5 10 10 10h5M3 17h3c1.5 0 2.5-1 3.5-2.4M14 8.4C15 7.4 15.5 7 17 7h4M18 4l3 3-3 3M18 14l3 3-3 3"/></svg>Shuffle</div></div>
-  <div class="chips"><span class="on">All</span><span>Clean</span><span>Loud</span><span>Playful</span><span>Script and hand</span><span>Serif</span><span>Retro and deco</span><span>Tech and pixel</span><span>Quirky</span></div></div>
+  <div id="tb"><div class="row1"><div class="nm">Wordmark Gallery</div><div class="sb"><span>Top Brands</span><svg class="i"><path d="M6 9l6 6 6-6"/></svg></div><div class="btn"><svg class="i"><path d="M3 7h3c5 0 5 10 10 10h5M3 17h3c1.5 0 2.5-1 3.5-2.4M14 8.4C15 7.4 15.5 7 17 7h4M18 4l3 3-3 3M18 14l3 3-3 3"/></svg>Loop</div></div>
+  <div class="chips"><span class="on">All Wordmarks</span><span>Tech</span><span>Media</span><span>Fashion</span><span>Retail</span><span>Finance</span></div></div>
   <div id="gal"></div>
-  <svg id="cur" viewBox="0 0 24 24"><path d="M4 2l15 9-6.5 1.8L9 19.5z" fill="#fff" stroke="#0e1030" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  <svg id="cur" viewBox="0 0 24 24"><path d="M4 2l15 9-6.5 1.8L9 19.5z" fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>
  </div></div>
  <div class="sec" id="bot"><div><span id="ty"></span><span class="c" id="cc"></span><span class="r" id="rs"></span></div></div>
 </div>
 <script>
 (()=>{
-const W=1080,H=1920,DUR=5;
-window.REEL={width:W,height:H,fps:30,duration:DUR,poster:3};
+const W=1080,H=1920,DUR=7;
+window.REEL={width:W,height:H,fps:30,duration:DUR,poster:3.5};
 const RENDER=/[?&]render=1/.test(location.search);
 const $=id=>document.getElementById(id);
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
-const TXT="looks the same, throw your behind story";
-/* font, tag, weight, uppercase, palette(bg,ink) */
+const TXT="you are burning your capital on just a logo.";
+
+/* Brand list: [Name, Category, Tag, FontStyle/Family, ColorPalette(bg, ink)] */
 const L=[
-['Boldonse','Heavy',400,0,0],['Unbounded','Wide',800,0,1],['Monoton','Neon lines',400,1,4],['Pacifico','Surf script',400,0,6],
-['Syne','Art school',800,0,5],['Rye','Western',400,0,3],['Orbitron','Futuristic',700,1,7],['Great Vibes','Formal script',400,0,2],
-['Bungee','Signage',400,1,8],['Fraunces','Soft',700,0,9],['Press Start 2P','Pixel',400,1,4],['Bagel Fat One','Bubble',400,0,6],
-['Anton','Loud',400,1,5],['Plaster','Art deco',400,0,9],['Audiowide','Futuristic',400,0,7],['Modak','Chubby',400,0,2],
-['Righteous','Display',400,0,1],['Bungee Shade','3D',400,1,3],['Pinyon Script','Formal script',400,0,0],['Faster One','Racing',400,0,8],
-['Rubik Mono One','Heavy',400,1,5],['Climate Crisis','Melting',400,0,9],['Silkscreen','Pixel',400,1,4],['Luckiest Guy','Comic',400,0,6]];
-const PAL=[['#ffffff','#111111'],['#f3ead9','#b4532a'],['#f7f3ee','#c0392b'],['#e9e2d0','#3b4a2f'],['#0d1117','#39d0ff'],['#ffd60a','#111111'],['#fbe4ec','#5b2a45'],['#e8e8ea','#3a2cff'],['#111111','#ffffff'],['#1e3a2f','#e0b35a']];
-const COLS=4,PX=278,PITCH=294,ROWP=205,X0=20,Y0=22,ROWS=L.length/COLS,PERIOD=ROWS*ROWP,TB=122,VH=712;
+  ['SONY','Tech','Electronics','font-weight:900;letter-spacing:0.08em;font-family:sans-serif',['#000000','#ffffff']],
+  ['SAMSUNG','Tech','Electronics','font-weight:800;letter-spacing:-0.03em;font-family:sans-serif',['#1428a0','#ffffff']],
+  ['Netflix','Media','Streaming','font-weight:900;letter-spacing:-0.04em;font-family:sans-serif',['#e50914','#ffffff']],
+  ['Google','Tech','Software','font-weight:700;letter-spacing:-0.02em;font-family:sans-serif',['#ffffff','#ea4335']],
+  ['intel','Tech','Hardware','font-weight:800;letter-spacing:-0.02em;font-family:sans-serif',['#0068b5','#ffffff']],
+  ['Spotify','Media','Music','font-weight:800;letter-spacing:-0.03em;font-family:sans-serif',['#1db954','#ffffff']],
+  ['Adobe','Tech','Software','font-weight:900;letter-spacing:-0.01em;font-family:sans-serif',['#fa0f00','#ffffff']],
+  ['Uber','Tech','Platform','font-weight:700;letter-spacing:0.04em;font-family:sans-serif',['#000000','#ffffff']],
+  ['eBay','Retail','E-commerce','font-weight:800;letter-spacing:-0.03em;font-family:sans-serif',['#ffffff','#e53238']],
+  ['Yahoo!','Media','Portal','font-weight:800;font-style:italic;font-family:sans-serif',['#6001d2','#ffffff']],
+  ['Panasonic','Tech','Electronics','font-weight:700;letter-spacing:0.02em;font-family:sans-serif',['#0055a5','#ffffff']],
+  ['Philips','Tech','Healthcare','font-weight:700;letter-spacing:-0.02em;font-family:sans-serif',['#0066cc','#ffffff']],
+  ['LG','Tech','Electronics','font-weight:800;letter-spacing:0.05em;font-family:sans-serif',['#a50034','#ffffff']],
+  ['Braun','Retail','Design','font-weight:700;letter-spacing:0.12em;font-family:sans-serif',['#222222','#ffffff']],
+  ['ZARA','Fashion','Apparel','font-weight:700;letter-spacing:0.1em;font-family:\'Playfair Display\',serif',['#ffffff','#111111']],
+  ['H&M','Fashion','Apparel','font-weight:900;letter-spacing:-0.02em;font-family:sans-serif',['#e50010','#ffffff']],
+  ['FedEx','Retail','Logistics','font-weight:800;letter-spacing:-0.03em;font-family:sans-serif',['#ffffff','#4d148c']],
+  ['Canon','Tech','Imaging','font-weight:800;letter-spacing:-0.02em;font-family:sans-serif',['#cc0000','#ffffff']],
+  ['IBM','Tech','Enterprise','font-weight:900;letter-spacing:0.05em;font-family:sans-serif',['#00509d','#ffffff']],
+  ['BBC','Media','Broadcast','font-weight:900;letter-spacing:0.05em;font-family:sans-serif',['#000000','#ffffff']],
+  ['CNN','Media','News','font-weight:900;letter-spacing:-0.05em;font-family:sans-serif',['#cc0000','#ffffff']],
+  ['VISA','Finance','Payments','font-weight:800;font-style:italic;letter-spacing:-0.03em;font-family:sans-serif',['#1a1f71','#ffffff']],
+  ['PayPal','Finance','Payments','font-weight:700;letter-spacing:-0.02em;font-family:sans-serif',['#003087','#ffffff']],
+  ['Skype','Tech','Communication','font-weight:700;letter-spacing:-0.02em;font-family:sans-serif',['#00aff0','#ffffff']],
+  ['Slack','Tech','Workspace','font-weight:800;letter-spacing:-0.03em;font-family:sans-serif',['#4a154b','#ffffff']],
+  ['Twitch','Media','Streaming','font-weight:800;letter-spacing:-0.02em;font-family:sans-serif',['#9146ff','#ffffff']],
+  ['Discord','Tech','Community','font-weight:800;letter-spacing:-0.02em;font-family:sans-serif',['#5865f2','#ffffff']],
+  ['Zoom','Tech','Video','font-weight:800;letter-spacing:-0.02em;font-family:sans-serif',['#2d8cff','#ffffff']],
+  ['Canva','Tech','Design','font-weight:800;letter-spacing:-0.03em;font-family:sans-serif',['#00c4cc','#ffffff']],
+  ['Vimeo','Media','Video','font-weight:700;font-style:italic;letter-spacing:-0.02em;font-family:sans-serif',['#1ab7ea','#ffffff']],
+  ['Prada','Fashion','Luxury','font-weight:700;letter-spacing:0.15em;font-family:\'Cinzel\',serif',['#ffffff','#111111']],
+  ['Gucci','Fashion','Luxury','font-weight:700;letter-spacing:0.1em;font-family:\'Cinzel\',serif',['#ffffff','#111111']]
+];
+
+const COLS=4,PX=278,PITCH=294,ROWP=205,X0=20,Y0=22,ROWS=L.length/COLS,PERIOD=ROWS*ROWP,TB=122;
 const cards=[];
+
 function build(){
   const g=$('gal');
-  for(let rep=0;rep<2;rep++)L.forEach((f,i)=>{
+  for(let rep=0;rep<3;rep++)L.forEach((f,i)=>{
     const r=Math.floor(i/COLS)+rep*ROWS,c=i%COLS,d=document.createElement('div');
     d.className='card';const x=X0+c*PITCH,y=Y0+r*ROWP;d.style.left=x+'px';d.style.top=y+'px';
-    const p=PAL[f[4]],nm=f[3]?'NOVA':'Nova';
-    d.innerHTML=`<div class="art" style="background:${p[0]};color:${p[1]};font:${f[2]} 80px/1.2 '${f[0]}',serif">${nm}</div><div class="meta"><b>${f[0]}</b><span>${f[1]}</span><i><svg class="i"><path d="M4 20l1-5L16 4l4 4L9 19z"/></svg>Edit</i></div>`;
+    const p=f[4];
+    d.innerHTML=`<div class="art" style="background:${p[0]};color:${p[1]};${f[3]};font-size:46px">${f[0]}</div><div class="meta"><b>${f[0]}</b><span>${f[2]}</span><i><svg class="i"><path d="M4 20l1-5L16 4l4 4L9 19z"/></svg>Check</i></div>`;
     g.appendChild(d);cards.push({d,x,y,e:d.querySelector('i'),a:d.firstChild,idx:i});
   });
 }
+
 function fit(){
   const c=document.createElement('canvas').getContext('2d');
-  cards.forEach(k=>{const f=L[k.idx],nm=f[3]?'NOVA':'Nova';c.font=`${f[2]} 100px "${f[0]}"`;
-    const w=c.measureText(nm).width||300;k.a.style.fontSize=Math.min(88,100*236/w)+'px';});
+  cards.forEach(k=>{
+    const f=L[k.idx];
+    c.font=`bold 60px sans-serif`;
+    const w=c.measureText(f[0]).width||200;
+    k.a.style.fontSize=Math.min(56,60*236/w)+'px';
+  });
 }
-function loadFonts(){
-  const jobs=L.map(f=>new Promise(res=>{
-    const q=encodeURIComponent(f[0]).replace(/%20/g,'+')+(f[2]>400?':wght@'+f[2]:'');
-    const l=document.createElement('link');l.rel='stylesheet';
-    l.href=`https://fonts.googleapis.com/css2?family=${q}&text=${encodeURIComponent('NovaOVA')}&display=block`;
-    let d=0;const fin=()=>{if(d)return;d=1;document.fonts.load(`${f[2]} 40px "${f[0]}"`,'Nova').then(()=>res(),()=>res());};
-    l.onload=fin;l.onerror=()=>{if(!d){d=1;console.warn('font failed',f[0]);res();}};setTimeout(fin,9000);document.head.appendChild(l);}));
-  return Promise.all(jobs);
-}
-/* ---------- SFX: unpitched noise only (clicks, ticks, thumps, whooshes) ---------- */
+
 let REC=null,curT=0,lastT=-1,lastRow=null;
 const nbuf=ctx=>{if(ctx.__nb)return ctx.__nb;const n=ctx.sampleRate,b=ctx.createBuffer(1,n,ctx.sampleRate),d=b.getChannelData(0);let q=1234567;
   for(let i=0;i<n;i++){q=(q*1664525+1013904223)>>>0;d[i]=q/2147483648-1;}return ctx.__nb=b;};
-/* type -> [filter, freq, Q, duration, gain] */
+
 const SFX={
   key:['bandpass',2600,.9,.035,.55],space:['bandpass',900,.8,.06,.7],back:['bandpass',1500,.9,.03,.4],
   hover:['highpass',6500,.7,.022,.3],row:['lowpass',500,.7,.1,.7],thud:['lowpass',280,.7,.16,.9],whoosh:['bandpass',400,.6,.4,.5]};
+
 function synth(ctx,dst,type,when,v,seed){
   const p=SFX[type];if(!p)return;
   const src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();
@@ -102,14 +128,16 @@ function synth(ctx,dst,type,when,v,seed){
   g.gain.exponentialRampToValueAtTime(.0001,when+dur);
   src.connect(f);f.connect(g);g.connect(dst);src.start(when,((seed||0)*.0371)%.5,dur+.05);
 }
-function emit(type,v=1,seed=0){if(REC)REC.push({t:+curT.toFixed(4),type,v,seed});} /* soundtrack is baked at render time only */
+
+function emit(type,v=1,seed=0){if(REC)REC.push({t:+curT.toFixed(4),type,v,seed});}
 function resetSfxState(){cards.forEach(k=>k.on=false);lastRow=null;lastT=-1;lastN=-1;}
-/* render.py contract: window.renderAudio() -> Promise<base64 WAV>; sound events are recorded by dry-running renderFrame */
+
 function recordAudio(){
   REC=[{t:0,type:'whoosh',v:.8,seed:0}];resetSfxState();
   for(let i=0;i<DUR*30;i++)renderFrame(i/30);
   window.REEL.audioEvents=REC;REC=null;resetSfxState();renderFrame(0);
 }
+
 window.renderAudio=async()=>{
   if(!window.REEL.audioEvents)recordAudio();
   const sr=44100,ctx=new OfflineAudioContext(2,Math.round(sr*DUR),sr);
@@ -123,54 +151,54 @@ window.renderAudio=async()=>{
   const u8=new Uint8Array(out.buffer);let bin='';for(let i=0;i<u8.length;i+=8192)bin+=String.fromCharCode.apply(null,u8.subarray(i,i+8192));
   return btoa(bin);
 };
+
 const ty=$('ty'),rs=$('rs'),cc=$('cc'),cur=$('cur'),gal=$('gal');let lastN=-1;
+
 function renderFrame(t){
   t=((t%DUR)+DUR)%DUR;const u=t/DUR;curT=t;
   const cross=x=>lastT>=0&&lastT<x&&t>=x;
-  if(lastT>=0&&t<lastT-.5)emit('whoosh',.8); /* loop restart */
-  if(cross(1.9))emit('thud',.7);            /* typing done */
-  if(cross(4.3))emit('whoosh',.45);         /* backspace sweep */
-  /* gallery scroll: exactly one period per loop -> seamless */
-  const sc=u*PERIOD;gal.style.transform=`translateY(${-sc}px)`;
+  if(lastT>=0&&t<lastT-.5)emit('whoosh',.8);
+  if(cross(4.5))emit('thud',.7);
+  
+  const sc=u*PERIOD*1.5;gal.style.transform=`translateY(${-sc}px)`;
   const row=Math.floor(sc/ROWP);if(lastRow!==null&&row!==lastRow)emit('row',.5,row);lastRow=row;
-  /* cursor path (periodic) */
-  const cx=600+430*Math.sin(2*Math.PI*u+.6),cy=410+170*Math.sin(4*Math.PI*u+1);
+
+  const cx=600+430*Math.sin(2*Math.PI*u*2+.6),cy=410+170*Math.sin(4*Math.PI*u*2+1);
   cur.style.transform=`translate(${cx-6}px,${cy-4}px)`;
-  const py=cy-TB+sc; /* cursor in gallery space */
+  const py=cy-TB+sc;
+
   cards.forEach(k=>{
     const dx=Math.max(Math.abs(cx-(k.x+PX/2))-PX/2,0),dy=Math.max(Math.abs(py-(k.y-0+189/2))-189/2-0,0);
-    /* gallery space y of card = k.y (gal top already offset) */
     const h=clamp(1-Math.hypot(dx,dy)/26),e=h*h*(3-2*h);
     k.d.style.transform=e?`translateY(${-4*e}px)`:'';
-    k.d.style.borderColor=e?`rgba(58,44,255,${e})`:'';
+    k.d.style.borderColor=e?`rgba(37,99,235,${e})`:'';
     k.e.style.opacity=e;
-    if(e>.6&&!k.on){k.on=true;emit('hover',1,k.idx);}else if(e<.15)k.on=false; /* hover tick */
+    if(e>.6&&!k.on){k.on=true;emit('hover',1,k.idx);}else if(e<.15)k.on=false;
   });
-  /* typing: type 0.3-1.9s, hold, backspace 4.3-4.9s */
+
   let n=TXT.length;
-  if(t<.3)n=0;else if(t<1.9)n=Math.round(TXT.length*clamp((t-.3)/1.6));
-  else if(t>=4.3)n=Math.round(TXT.length*(1-clamp((t-4.3)/.6)));
+  if(t<0.8)n=0;else if(t<4.5)n=Math.round(TXT.length*clamp((t-0.8)/3.7));
   if(n!==lastN){
     if(lastN>=0){const dn=n-lastN;
-      if(dn>0)for(let j=0;j<Math.min(dn,3);j++){const ch=TXT[n-1-j];emit(ch===' '?'space':'key',.9,n+j);}
-      else for(let j=0;j<Math.min(-dn,3);j++)emit('back',.9,n+j);}
+      if(dn>0)for(let j=0;j<Math.min(dn,3);j++){const ch=TXT[n-1-j];emit(ch===' '?'space':'key',.9,n+j);}}
     ty.textContent=TXT.slice(0,n);rs.textContent=TXT.slice(n);lastN=n;}
   lastT=t;
-  const typing=t<1.9||t>=4.3;cc.style.opacity=(typing||Math.floor(t*2)%2===0)?1:0;
+  const typing=t<4.5;cc.style.opacity=(typing||Math.floor(t*2)%2===0)?1:0;
 }
+
 window.renderFrame=renderFrame;
+
 function preview(){
   const vp=$('vp'),f=()=>{const s=Math.min(innerWidth/W,innerHeight/H);vp.style.transform=`scale(${s})`;vp.style.left=(innerWidth-W*s)/2+'px';vp.style.top=(innerHeight-H*s)/2+'px';};
   addEventListener('resize',f);f();const t0=performance.now();
   (function lp(){renderFrame((performance.now()-t0)/1000);requestAnimationFrame(lp);})();
 }
+
 (async()=>{
   try{
-    build();await Promise.all([loadFonts(),document.fonts.load('800 40px "Bricolage Grotesque"','My businessman $50,000'),document.fonts.load('700 40px "Bricolage Grotesque"',TXT)]).catch(()=>{});
-    await document.fonts.ready;fit();renderFrame(0);
+    build();await document.fonts.ready;fit();renderFrame(0);
     if(RENDER)recordAudio();else preview();
     window.__reelReady=true;
   }catch(e){window.__reelError=String(e&&e.stack||e);}
-})();
 })();
 </script></body></html>
