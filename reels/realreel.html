@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Great Brands — Wordmark Reel</title>
+<title>Great Brands — Wordmark Logos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Cinzel:wght@700;900&family=Montserrat:wght@300;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=Bebas+Neue&family=Orbitron:wght@900&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&display=swap">
 <style>
 :root {
   --bg: #090a0f;
@@ -42,7 +42,7 @@ html, body {
   height: 640px;
 }
 
-/* TOP SECTION: STATIC (RULE 1) */
+/* TOP SECTION: 100% STATIC (RULE 1) */
 #top {
   top: 0;
   display: flex;
@@ -77,7 +77,7 @@ html, body {
 .top-title {
   font-weight: 800;
   font-size: 68px;
-  line-height: 1.14;
+  line-height: 1.15;
   letter-spacing: -0.025em;
   color: #ffffff;
 }
@@ -100,7 +100,7 @@ html, body {
   position: relative;
 }
 
-/* Viewfinder HUD elements */
+/* Viewfinder Brackets & HUD */
 .hud-corner {
   position: absolute;
   width: 32px;
@@ -143,10 +143,10 @@ html, body {
 }
 .hud-counter {
   color: #a0a6c0;
-  background: rgba(0,0,0,0.4);
-  padding: 4px 14px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 16px;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .hud-counter b { color: #fff; }
 
@@ -171,6 +171,7 @@ html, body {
 .hud-val {
   color: var(--acc);
   font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 /* Card Canvas */
@@ -183,21 +184,27 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 24px 60px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.12);
-  transition: background 0.05s ease;
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  transition: background 0.04s ease;
 }
-#card-logo {
-  display: flex;
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 40px;
-  transform: translateZ(0);
+  padding: 40px 60px;
 }
-.l-svg {
-  max-width: 820px;
-  max-height: 240px;
+.slide.active {
+  display: flex;
+}
+.slide img {
+  max-width: 82%;
+  max-height: 250px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
 }
 
@@ -234,7 +241,7 @@ html, body {
 }
 .bot-box {
   width: 100%;
-  max-width: 940px;
+  max-width: 960px;
 }
 .bot-text {
   font-weight: 700;
@@ -258,7 +265,7 @@ html, body {
   margin-top: 24px;
   font-size: 24px;
   color: #7b819f;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -269,7 +276,7 @@ html, body {
   <!-- TOP (STATIC) -->
   <div class="sec" id="top">
     <div class="top-pill"><span class="dot"></span>Branding Lesson</div>
-    <h1 class="top-title">Great brands can have<br><em>text-only logos.</em><br>Then why don’t you?</h1>
+    <h1 class="top-title">Great brands can have<br><em>text only logos.</em><br>Then why don’t you?</h1>
   </div>
 
   <!-- MIDDLE (FAST WORDMARKS) -->
@@ -281,11 +288,12 @@ html, body {
 
     <div class="hud-topbar">
       <div class="hud-live"><span class="hud-live-dot"></span>WORDMARK SHOWCASE</div>
-      <div class="hud-counter" id="cnt"><b>01</b> / 35</div>
+      <div class="hud-counter" id="cnt"><b>01</b> / 24</div>
     </div>
 
     <div id="card">
-      <div id="card-logo"></div>
+      <!-- 24 Actual Wikimedia Commons SVG Slides -->
+      <div id="slides-container"></div>
       <div id="flash"></div>
     </div>
 
@@ -302,7 +310,7 @@ html, body {
       <div class="bot-text">
         <span id="ty-line"></span><span class="cursor" id="cur"></span>
       </div>
-      <div class="bot-sub">Keep it simple. Build the business first.</div>
+      <div class="bot-sub">Build the product first. Stop over-designing.</div>
     </div>
   </div>
 </div>
@@ -316,168 +324,144 @@ const $ = id => document.getElementById(id);
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 
 /* -------------------------------------------------------------
-   35 BIGGEST WORLD-RENOWNED WORDMARK-ONLY BRANDS
-   [Name, Tag, Sub, BackgroundColor, HTML/SVG markup]
+   THE 24 OFFICIAL WIKIMEDIA COMMONS SVG LOGOS
+   [Name, Tag, Sub, BackgroundColor, ImageURL, CSS Filter]
 ------------------------------------------------------------- */
 const BRANDS = [
-  /* 01. SONY */
-  ['SONY', 'CONSUMER ELECTRONICS', 'CLARENDON SLAB SERIF', '#050505',
-   `<svg viewBox="0 0 600 130" class="l-svg"><text x="300" y="100" font-family="'Cinzel','Playfair Display','Georgia',serif" font-weight="900" font-size="124" fill="#ffffff" text-anchor="middle" letter-spacing="24">SONY</text></svg>`],
+  /* 01 */
+  ['SAMSUNG', 'GLOBAL TECHNOLOGY', 'KOREAN TECH LEADER', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/b/b4/Samsung_wordmark.svg', 'none'],
 
-  /* 02. SUPREME */
-  ['SUPREME', 'STREETWEAR ICON', 'FUTURA BOLD OBLIQUE', '#1a0505',
-   `<div style="background:#e21a2c;padding:20px 48px 24px;border-radius:4px;display:inline-block;"><span style="font-family:'Montserrat','Arial Black',sans-serif;font-style:italic;font-weight:900;font-size:108px;color:#ffffff;letter-spacing:-3px;line-height:1">Supreme</span></div>`],
+  /* 02 */
+  ['UBER', 'MOBILITY & LOGISTICS', 'GLOBAL RIDE NETWORK', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/5/58/Uber_logo_2018.svg', 'none'],
 
-  /* 03. BRAUN */
-  ['BRAUN', 'INDUSTRIAL DESIGN', 'ICONIC ARCHED GROTESQUE', '#16171a',
-   `<svg viewBox="0 0 540 180" class="l-svg">
-      <path d="M70 45 h45 c25 0 42 12 42 28 c0 11-7 20-18 25 c15 5 24 16 24 30 c0 18-18 32-45 32 H70 V45 z m34 26 v22 h13 c9 0 15-4 15-11 c0-7-6-11-15-11 H104 z m0 44 v25 h16 c10 0 17-5 17-12 c0-8-7-13-17-13 H104 z" fill="#fff"/>
-      <path d="M175 45 h42 c28 0 44 14 44 34 c0 16-10 27-26 31 l28 50 h-36 l-24-45 h-8 v45 h-34 V45 z m34 26 v23 h10 c8 0 14-4 14-11 c0-7-6-12-14-12 H209 z" fill="#fff"/>
-      <path d="M265 160 l42-138 c6-20 22-22 34-22 c12 0 28 2 34 22 l42 138 h-35 l-11-38 h-58 l-11 38 H265 z m54-64 h43 l-21-72 z" fill="#fff"/>
-      <path d="M430 45 h34 v68 c0 17 9 27 24 27 c15 0 24-10 24-27 V45 h34 v68 c0 34-21 49-58 49 c-37 0-58-15-58-49 V45 z" fill="#fff"/>
-      <path d="M555 45 h32 l38 68 V45 h32 v115 h-30 l-40-72 v72 h-32 V45 z" fill="#fff"/>
-    </svg>`],
+  /* 03 */
+  ['CANON', 'OPTICAL & CAMERAS', 'JAPANESE PRECISION', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/0/0a/Canon_wordmark.svg', 'none'],
 
-  /* 04. GOOGLE */
-  ['GOOGLE', 'TECH CONGLOMERATE', 'PRODUCT SANS GEOMETRIC', '#ffffff',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:132px;letter-spacing:-4px;line-height:1;"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></div>`],
+  /* 04 */
+  ['GUCCI', 'ITALIAN LUXURY', 'HIGH COUTURE HOUSE', '#f5f2ea',
+   'https://upload.wikimedia.org/wikipedia/commons/2/2e/Gucci_Logo.svg', 'none'],
 
-  /* 05. ZARA */
-  ['ZARA', 'FASHION RETAIL', 'BODONI OVERLAPPING SERIF', '#0d0d0e',
-   `<div style="font-family:'Playfair Display','Georgia',serif;font-weight:900;font-size:165px;color:#ffffff;letter-spacing:-24px;transform:scaleX(0.88);line-height:1;">ZARA</div>`],
+  /* 05 */
+  ['CHANEL', 'PARISIAN HAUTE COUTURE', 'TIMELESS FASHION', '#000000',
+   'https://upload.wikimedia.org/wikipedia/commons/3/35/Chanel_logo.svg', 'invert(1)'],
 
-  /* 06. PRADA */
-  ['PRADA', 'HAUTE COUTURE', 'NOTCHED LUXURY SERIF', '#08080a',
-   `<svg viewBox="0 0 620 120" class="l-svg"><text x="310" y="96" font-family="'Didot','Cinzel',serif" font-weight="900" font-size="118" fill="#ffffff" text-anchor="middle" letter-spacing="24">PRADA</text></svg>`],
+  /* 06 */
+  ['SUPREME', 'STREETWEAR ICON', 'CULTURE PHENOMENON', '#111114',
+   'https://upload.wikimedia.org/wikipedia/commons/2/28/Supreme_Logo.svg', 'none'],
 
-  /* 07. FEDEX */
-  ['FEDEX', 'GLOBAL LOGISTICS', 'HIDDEN ARROW TYPOGRAPHY', '#f5f6fa',
-   `<div style="font-family:'Montserrat','Arial Black',sans-serif;font-weight:900;font-size:150px;letter-spacing:-8px;line-height:1;"><span style="color:#4D148C">Fed</span><span style="color:#FF6600">Ex</span></div>`],
+  /* 07 */
+  ['LOUIS VUITTON', 'FRENCH LUXURY', 'HISTORIC MAISON', '#f4efe8',
+   'https://upload.wikimedia.org/wikipedia/commons/6/6a/Louis_Vuitton_logo.svg', 'none'],
 
-  /* 08. NETFLIX */
-  ['NETFLIX', 'STREAMING ENTERTAINMENT', 'ARCHED BOLD SANS', '#050505',
-   `<div style="font-family:'Bebas Neue','Impact',sans-serif;font-size:165px;color:#E50914;letter-spacing:10px;line-height:1;transform:perspective(320px) rotateX(10deg);">NETFLIX</div>`],
+  /* 08 */
+  ['PRADA', 'MILANESE LUXURY', 'MINIMALIST LUXURY', '#08080a',
+   'https://upload.wikimedia.org/wikipedia/commons/b/b8/Prada-Logo.svg', 'invert(1)'],
 
-  /* 09. IKEA */
-  ['IKEA', 'HOME FURNISHING', 'HEAVY SLAB BLOCK', '#081a38',
-   `<svg viewBox="0 0 460 220" style="width:420px;height:200px">
-      <rect width="460" height="220" fill="#0051BA" rx="12"/>
-      <ellipse cx="230" cy="110" rx="212" ry="94" fill="#FFDA1A"/>
-      <text x="230" y="152" font-family="'Impact','Arial Black',sans-serif" font-weight="900" font-size="138" fill="#0051BA" text-anchor="middle" letter-spacing="6">IKEA</text>
-    </svg>`],
+  /* 09 */
+  ['ZARA', 'FASHION RETAIL', 'GLOBAL FAST FASHION', '#f3f2ee',
+   'https://upload.wikimedia.org/wikipedia/commons/f/fd/Zara_Logo.svg', 'none'],
 
-  /* 10. CALVIN KLEIN */
-  ['CALVIN KLEIN', 'MINIMALIST LUXURY', 'AVANT-GARDE GEOMETRIC', '#ffffff',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:300;font-size:78px;letter-spacing:14px;color:#000000;text-transform:uppercase;">Calvin Klein</div>`],
+  /* 10 */
+  ['CALVIN KLEIN', 'MINIMALIST APPAREL', 'MODERNIST ESSENTIALS', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/e/e2/Calvin_klein_logo.svg', 'none'],
 
-  /* 11. CANON */
-  ['CANON', 'OPTICAL & CAMERAS', 'CUSTOM HOOKED SERIF', '#ffffff',
-   `<div style="font-family:'Cinzel','Playfair Display',serif;font-weight:900;font-size:135px;color:#CC0000;letter-spacing:8px;line-height:1;">Canon</div>`],
+  /* 11 */
+  ["L'ORÉAL", 'BEAUTY CONGLOMERATE', 'COSMETICS GIANT', '#f9f6f0',
+   'https://upload.wikimedia.org/wikipedia/commons/9/9d/L%27Or%C3%A9al_logo.svg', 'none'],
 
-  /* 12. CASIO */
-  ['CASIO', 'TIMEPIECES & AUDIO', 'EXTENDED TECH SANS', '#081c47',
-   `<div style="font-family:'Orbitron','Montserrat',sans-serif;font-weight:900;font-size:120px;color:#ffffff;letter-spacing:14px;transform:scaleX(1.15);">CASIO</div>`],
+  /* 12 */
+  ['THE NEW YORK TIMES', 'GLOBAL JOURNALISM', 'ESTABLISHED 1851', '#fcfbf8',
+   'https://upload.wikimedia.org/wikipedia/commons/0/02/The_New_York_Times_Logo.svg', 'none'],
 
-  /* 13. GAP */
-  ['GAP', 'APPAREL ICON', 'CONDENSED SERIF IN SQUARE', '#051326',
-   `<div style="background:#002B49;width:210px;height:210px;display:flex;align-items:center;justify-content:center;border-radius:6px;box-shadow:0 8px 30px rgba(0,0,0,0.5);"><span style="font-family:'Playfair Display','Georgia',serif;font-weight:700;font-size:115px;color:#fff;letter-spacing:4px;">GAP</span></div>`],
+  /* 13 */
+  ['VISA', 'PAYMENT NETWORK', 'GLOBAL PAYMENTS', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/5/5c/Visa_Inc._logo_%282021%E2%80%93present%29.svg', 'none'],
 
-  /* 14. SEGA */
-  ['SEGA', 'GAMING LEGEND', 'TWIN INLINE STRIPES', '#051124',
-   `<svg viewBox="0 0 480 140" style="width:420px;height:120px">
-      <text x="240" y="112" font-family="'Arial Black',sans-serif" font-weight="900" font-size="130" fill="none" stroke="#0060A9" stroke-width="24" stroke-linejoin="round" text-anchor="middle" letter-spacing="8">SEGA</text>
-      <text x="240" y="112" font-family="'Arial Black',sans-serif" font-weight="900" font-size="130" fill="none" stroke="#ffffff" stroke-width="6" stroke-linejoin="round" text-anchor="middle" letter-spacing="8">SEGA</text>
-    </svg>`],
+  /* 14 */
+  ['CNN', 'BROADCAST NEWS', 'CABLE NEWS NETWORK', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg', 'none'],
 
-  /* 15. PANASONIC */
-  ['PANASONIC', 'GLOBAL ELECTRONICS', 'HEAVYWEIGHT GROTESQUE', '#ffffff',
-   `<div style="font-family:'Helvetica Neue',Arial,sans-serif;font-weight:900;font-size:105px;color:#004098;letter-spacing:3px;">Panasonic</div>`],
+  /* 15 */
+  ['HBO', 'ENTERTAINMENT', 'PREMIUM TELEVISION', '#060709',
+   'https://upload.wikimedia.org/wikipedia/commons/d/de/HBO_logo.svg', 'invert(1)'],
 
-  /* 16. EBAY */
-  ['EBAY', 'GLOBAL MARKETPLACE', 'PLAYFUL MULTICOLOR SANS', '#ffffff',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:155px;letter-spacing:-7px;line-height:1;"><span style="color:#E53238">e</span><span style="color:#0064D2">b</span><span style="color:#F5AF02">a</span><span style="color:#86B817">y</span></div>`],
+  /* 16 */
+  ['DISNEY', 'ENTERTAINMENT TITAN', 'GLOBAL STORYTELLING', '#f2f5fb',
+   'https://upload.wikimedia.org/wikipedia/commons/a/a4/Disney_wordmark.svg', 'none'],
 
-  /* 17. JEEP */
-  ['JEEP', 'RUGGED AUTOMOTIVE', 'UTILITARIAN BOLD SANS', '#1b2618',
-   `<div style="font-family:'Arial Black',sans-serif;font-weight:900;font-size:145px;color:#ffffff;letter-spacing:4px;line-height:1;">Jeep</div>`],
+  /* 17 */
+  ['NETFLIX', 'STREAMING ENTERTAINMENT', 'ENTERTAINMENT LEADER', '#000000',
+   'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg', 'none'],
 
-  /* 18. VOGUE */
-  ['VOGUE', 'FASHION PUBLISHING', 'ULTRA-HAIRLINE DIDOT', '#080808',
-   `<div style="font-family:'Playfair Display','Didot',serif;font-style:italic;font-weight:900;font-size:150px;color:#ffffff;letter-spacing:8px;line-height:1;">VOGUE</div>`],
+  /* 18 */
+  ['SUBWAY', 'FAST CASUAL DINING', 'FRESH SANDWICHES', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/5/5c/Subway_2016_logo.svg', 'none'],
 
-  /* 19. GUCCI */
-  ['GUCCI', 'ITALIAN LUXURY', 'SPACED ROMAN CAPITALS', '#141210',
-   `<div style="font-family:'Cinzel',serif;font-weight:700;font-size:110px;color:#D4AF37;letter-spacing:22px;line-height:1;">GUCCI</div>`],
+  /* 19 */
+  ['NUTELLA', 'GLOBAL FOOD ICON', 'HAZELNUT SPREAD', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/f/f1/Nutella_logo.svg', 'none'],
 
-  /* 20. BALENCIAGA */
-  ['BALENCIAGA', 'PARISIAN COUTURE', 'INDUSTRIAL GROTESQUE', '#ffffff',
-   `<div style="font-family:'Arial Black',sans-serif;font-weight:900;font-size:82px;color:#111111;letter-spacing:12px;transform:scaleX(0.9);">BALENCIAGA</div>`],
+  /* 20 */
+  ['INTEL', 'SEMICONDUCTORS', 'SILICON PIONEER', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/6/6a/Intel_logo_%282020%2C_dark_blue%29.svg', 'none'],
 
-  /* 21. CHANEL */
-  ['CHANEL', 'TIMELESS COUTURE', 'GEOMETRIC CAPS', '#050505',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:115px;color:#ffffff;letter-spacing:24px;line-height:1;">CHANEL</div>`],
+  /* 21 */
+  ['NOKIA', 'TELECOMMUNICATIONS', 'NETWORK INFRASTRUCTURE', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/0/02/Nokia_wordmark.svg', 'none'],
 
-  /* 22. CARTIER */
-  ['CARTIER', 'HIGH JEWELRY', 'CALLIGRAPHIC SCRIPT', '#380911',
-   `<div style="font-family:'Pinyon Script','Playfair Display',cursive;font-size:160px;color:#F4E8D3;line-height:1;transform:rotate(-4deg);">Cartier</div>`],
+  /* 22 */
+  ['GOOGLE', 'SEARCH & CLOUD', 'MULTIBILLION USERS', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/e/ee/Google_2026_logo.svg', 'none'],
 
-  /* 23. DIOR */
-  ['DIOR', 'FRENCH LUXURY', 'HIGH-CONTRAST SERIF', '#09090b',
-   `<div style="font-family:'Playfair Display',serif;font-weight:700;font-size:145px;color:#ffffff;letter-spacing:18px;line-height:1;">DIOR</div>`],
+  /* 23 */
+  ['SONY', 'CONSUMER ELECTRONICS', 'AUDIO & PLAYSTATION', '#050505',
+   'https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg', 'invert(1)'],
 
-  /* 24. VISA */
-  ['VISA', 'FINANCIAL NETWORK', 'SPEED SLANTED SANS', '#0a1033',
-   `<div style="font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;font-size:145px;color:#ffffff;letter-spacing:2px;line-height:1;"><span style="color:#F7B600">V</span>ISA</div>`],
-
-  /* 25. SUBWAY */
-  ['SUBWAY', 'FAST CASUAL DINING', 'ARROWED HEAVY SANS', '#022915',
-   `<div style="font-family:'Arial Black',sans-serif;font-weight:900;font-size:125px;letter-spacing:-2px;line-height:1;"><span style="color:#FFC20E">SUB</span><span style="color:#FFFFFF">WAY</span></div>`],
-
-  /* 26. LEVI\'S */
-  ['LEVI\'S', 'DENIM HERITAGE', 'SLANTED BATWING TEXT', '#8c0d23',
-   `<div style="background:#C41230;padding:16px 48px;border-radius:4px;transform:skewX(-7deg);box-shadow:0 8px 30px rgba(0,0,0,0.5);"><span style="font-family:'Arial Black',sans-serif;font-weight:900;font-size:110px;color:#ffffff;letter-spacing:2px;line-height:1;">Levi's</span></div>`],
-
-  /* 27. SAMSUNG */
-  ['SAMSUNG', 'TECH CONGLOMERATE', 'CROSSBAR-LESS A', '#052354',
-   `<svg viewBox="0 0 540 100" style="width:480px;height:90px">
-      <text x="270" y="78" font-family="'Montserrat',sans-serif" font-weight="900" font-size="88" fill="#ffffff" text-anchor="middle" letter-spacing="10">SAMSUNG</text>
-    </svg>`],
-
-  /* 28. EPSON */
-  ['EPSON', 'PRECISION TECH', 'HEAVY BOLD GEOMETRIC', '#ffffff',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:120px;color:#003399;letter-spacing:8px;">EPSON</div>`],
-
-  /* 29. RAY-BAN */
-  ['RAY-BAN', 'ICONIC EYEWEAR', 'SLANTED SIGNATURE SCRIPT', '#2b060a',
-   `<div style="font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:120px;color:#E01A22;letter-spacing:3px;transform:rotate(-8deg);"><span style="color:#ffffff">Ray-</span>Ban</div>`],
-
-  /* 30. TIFFANY & CO. */
-  ['TIFFANY & CO.', 'LUXURY JEWELRY', 'CLASSIC ROMAN SERIF', '#68c2ba',
-   `<div style="font-family:'Playfair Display',serif;font-weight:700;font-size:76px;color:#000000;letter-spacing:10px;">TIFFANY & CO.</div>`],
-
-  /* 31. MARSHALL */
-  ['MARSHALL', 'LEGENDARY AUDIO', 'VINTAGE ROCK SCRIPT', '#0f0f10',
-   `<div style="font-family:'Pinyon Script',cursive;font-size:165px;color:#f0e6d2;letter-spacing:2px;transform:rotate(-3deg);text-shadow:0 4px 10px rgba(0,0,0,0.8);">Marshall</div>`],
-
-  /* 32. FENDI */
-  ['FENDI', 'ROMAN FASHION HOUSE', 'BOLD CAPITAL SERIF', '#d49f04',
-   `<div style="font-family:'Cinzel',serif;font-weight:900;font-size:128px;color:#111111;letter-spacing:18px;">FENDI</div>`],
-
-  /* 33. BURBERRY */
-  ['BURBERRY', 'BRITISH LUXURY', 'MODERNIST BOLD SANS', '#d6cec2',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:94px;color:#111111;letter-spacing:14px;">BURBERRY</div>`],
-
-  /* 34. HERMÈS */
-  ['HERMÈS', 'PARISIAN HERITAGE', 'CLASSIC COUTURE SERIF', '#d45611',
-   `<div style="font-family:'Playfair Display',serif;font-weight:800;font-size:115px;color:#2A1608;letter-spacing:12px;">HERMÈS</div>`],
-
-  /* 35. UBER */
-  ['UBER', 'GLOBAL MOBILITY', 'CLEAN NEO-GROTESQUE', '#000000',
-   `<div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:140px;color:#ffffff;letter-spacing:-2px;">Uber</div>`]
+  /* 24 */
+  ['EBAY', 'ONLINE MARKETPLACE', 'GLOBAL COMMERCE', '#ffffff',
+   'https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg', 'none']
 ];
 
 /* -------------------------------------------------------------
-   AUDIO SYNTHESIZER (NO MUSIC, SFX ONLY - RULE 2)
+   BUILD SLIDES IN DOM
+------------------------------------------------------------- */
+const slidesContainer = $('slides-container');
+const slideElements = [];
+
+function buildSlides() {
+  BRANDS.forEach((b, i) => {
+    const s = document.createElement('div');
+    s.className = 'slide' + (i === 0 ? ' active' : '');
+    s.id = `slide-${i}`;
+    const img = document.createElement('img');
+    img.src = b[4];
+    img.alt = b[0];
+    img.style.filter = b[5];
+    img.loading = 'eager';
+    s.appendChild(img);
+    slidesContainer.appendChild(s);
+    slideElements.push(s);
+  });
+}
+
+function preloadAllImages() {
+  const jobs = BRANDS.map((b) => new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => {
+      console.warn("Logo load fallback for:", b[0]);
+      resolve(false);
+    };
+    img.src = b[4];
+  }));
+  return Promise.all(jobs);
+}
+
+/* -------------------------------------------------------------
+   AUDIO SYNTHESIZER (SFX ONLY, NO MUSIC - RULE 2)
 ------------------------------------------------------------- */
 let REC = null, curT = 0, lastT = -1, lastIdx = -1, lastN = -1;
 const nbuf = ctx => {
@@ -493,12 +477,12 @@ const nbuf = ctx => {
 
 function synth(ctx, dst, type, when, v, seed) {
   if (type === 'snap') {
-    /* Camera shutter click / slide changer snap on every brand switch */
+    /* Mechanical shutter click / slide changer click on each logo change */
     const n = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
     n.buffer = nbuf(ctx);
     f.type = 'bandpass';
     f.Q.value = 2.4;
-    const fr = 2600 * (1 + ((seed || 0) % 7 - 3) * 0.05);
+    const fr = 2700 * (1 + ((seed || 0) % 7 - 3) * 0.05);
     f.frequency.setValueAtTime(fr, when);
     g.gain.setValueAtTime(0, when);
     g.gain.linearRampToValueAtTime(0.55 * v, when + 0.002);
@@ -508,9 +492,9 @@ function synth(ctx, dst, type, when, v, seed) {
 
     const osc = ctx.createOscillator(), og = ctx.createGain();
     osc.type = 'sine';
-    const pitch = 150 + ((seed || 0) % 5) * 12;
+    const pitch = 155 + ((seed || 0) % 5) * 12;
     osc.frequency.setValueAtTime(pitch, when);
-    osc.frequency.exponentialRampToValueAtTime(32, when + 0.04);
+    osc.frequency.exponentialRampToValueAtTime(30, when + 0.04);
     og.gain.setValueAtTime(0.35 * v, when);
     og.gain.exponentialRampToValueAtTime(0.0001, when + 0.04);
     osc.connect(og); og.connect(dst);
@@ -603,7 +587,6 @@ window.renderAudio = async () => {
    RENDER FRAME DETERMINISTIC LOGIC
 ------------------------------------------------------------- */
 const card = $('card');
-const cardLogo = $('card-logo');
 const flash = $('flash');
 const cnt = $('cnt');
 const tag = $('tag');
@@ -612,7 +595,7 @@ const runner = $('runner');
 const tyLine = $('ty-line');
 const cur = $('cur');
 
-const TXT_PART1 = "You are burning your capital ";
+const TXT_PART1 = "you are burning your capital ";
 const TXT_PART2 = "on just a logo.";
 const FULL_TXT = TXT_PART1 + TXT_PART2;
 
@@ -626,14 +609,16 @@ function renderFrame(t) {
   /* Runner bar */
   runner.style.width = ((t / DUR) * 100).toFixed(2) + '%';
 
-  /* 1. Fast logo index (35 brands over 7.0 seconds => 0.20s per brand) */
+  /* 1. Fast logo index (24 brands over 7.0 seconds => ~0.291s per brand) */
   const N_BRANDS = BRANDS.length;
   const brandIdx = Math.min(N_BRANDS - 1, Math.floor((t / DUR) * N_BRANDS));
 
   if (brandIdx !== lastIdx) {
     const b = BRANDS[brandIdx];
     card.style.background = b[3];
-    cardLogo.innerHTML = b[4];
+    slideElements.forEach((el, idx) => {
+      el.classList.toggle('active', idx === brandIdx);
+    });
     cnt.innerHTML = `<b>${String(brandIdx + 1).padStart(2, '0')}</b> / ${N_BRANDS}`;
     tag.textContent = b[1];
     val.textContent = b[2];
@@ -675,7 +660,7 @@ function renderFrame(t) {
 }
 window.renderFrame = renderFrame;
 
-/* Interactive Preview Scaler */
+/* Interactive Preview Scaler for normal browser viewing */
 function preview() {
   const vp = $('vp');
   const f = () => {
@@ -696,7 +681,8 @@ function preview() {
 /* Boot & Ready signal for render.py */
 (async () => {
   try {
-    await document.fonts.ready;
+    buildSlides();
+    await Promise.all([document.fonts.ready, preloadAllImages()]);
     renderFrame(0);
     if (RENDER) recordAudio();
     else preview();
